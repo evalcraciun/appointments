@@ -1,0 +1,13 @@
+html,
+body,
+#app,
+#root,
+#app > div {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #282c34;
+}
