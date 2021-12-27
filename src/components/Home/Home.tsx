@@ -9,7 +9,7 @@ export default function Home() {
   const [medicalArea, setMedicalArea] = useState('');
   const [title, setTitile] = useState('');
   const [description, setDescription] = useState('');
-  const [date, setDate] = useState<any>(null);
+  const [date, setDate] = useState(null);
   const [startTime, setStartTime] = useState<any>(null);
   const [endTime, setEndTime] = useState<any>(null);
 
@@ -20,7 +20,16 @@ export default function Home() {
 
   const handleSubmitEvent = (event: any) => {
     event.preventDefault();
-    console.log('event', date, 'title', title);
+
+    // here we should have like an array where to add multiple events
+    // but for the example now i'm saving only as an object
+    const nObj: any = Object.assign(
+      {},
+      { title, description, startTime, endTime, date, doctor: medicalArea }
+    );
+    if (nObj) {
+      localStorage.setItem('events', JSON.stringify(nObj));
+    }
   };
 
   return (
@@ -36,6 +45,8 @@ export default function Home() {
                 type='text'
                 name='title'
                 id='title'
+                required
+                maxLength={50}
                 onChange={event => setTitile(event.target.value)}
               />
             </div>
@@ -44,6 +55,8 @@ export default function Home() {
               <textarea
                 name='description'
                 id='desc'
+                required
+                maxLength={500}
                 onChange={event => setDescription(event.target.value)}
               ></textarea>
             </div>
@@ -68,16 +81,13 @@ export default function Home() {
                 id='startTime'
                 label='Start Time'
                 type='time'
-                defaultValue='07:30'
+                required
                 InputLabelProps={{
                   shrink: true
                 }}
-                inputProps={{
-                  step: 300 // 5 min
-                }}
                 sx={{ width: 150 }}
                 name='startTime'
-                onChange={event => setStartTime(event)}
+                onChange={event => setStartTime(event.target.value)}
               />
             </div>
             <div className='group'>
@@ -85,16 +95,13 @@ export default function Home() {
                 id='endTime'
                 label='End time'
                 type='time'
-                defaultValue='07:30'
+                required
                 InputLabelProps={{
                   shrink: true
                 }}
-                inputProps={{
-                  step: 300 // 5 min
-                }}
                 sx={{ width: 150 }}
                 name='endTime'
-                onChange={event => setEndTime(event)}
+                onChange={event => setEndTime(event.target.value)}
               />
             </div>
             <div className='group'>
@@ -116,6 +123,10 @@ export default function Home() {
         </div>
         <div className='list'>
           <h2>List of events</h2>
+          <p>
+            Display list of events from the local stoarge and add remove and
+            update
+          </p>
         </div>
       </div>
 
