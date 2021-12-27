@@ -1,7 +1,15 @@
-.container-navigation {
+.navigation {
   display: block;
   color: #fff;
   background: #fff;
-  border-bottom: 2px solid #000;
   padding: 20px 0;
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+      color: #000;
+    }
+  }
 }
